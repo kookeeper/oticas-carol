@@ -1,0 +1,82 @@
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_0.xsd"
+                 version="2.0">
+    <persistence-unit-metadata>
+        <persistence-unit-defaults>
+            <schema>USUARIO</schema>
+        </persistence-unit-defaults>
+    </persistence-unit-metadata>
+    <named-query name="produto.findAll">
+        <query>select o from Produto o</query>
+    </named-query>
+    <named-query name="produto.procurar">
+    	<query>select o from Produto o where o.codigoProduto like :filtro or o.descricaoProduto like :filtro</query>
+    </named-query>
+    <named-query name="produto.procurarPorCodigo">
+    	<query>select o from Produto o where o.codigoProduto = :codigoProduto</query>
+    </named-query>
+    <named-query name="usuario.findAll">
+        <query>select o from Usuario o</query>
+    </named-query>
+    <named-query name="usuario.procurar">
+    	<query>select o from Usuario o where o.login like :filtro or o.nomeUsuario like :filtro</query>
+    </named-query>
+    <named-query name="usuario.buscarPorLogin">
+    	<query>select o from Usuario o where o.login = :login</query>
+    </named-query>
+    <named-query name="fornecedor.findAll">
+    	<query>select o from Pessoa o where o.tipoCadastroPessoa = 'FORNECEDOR'</query>
+    </named-query>
+    <named-query name="laboratorio.findAll">
+    	<query>select o from Pessoa o where o.tipoCadastroPessoa = 'LABORATORIO'</query>
+    </named-query>
+    <named-query name="cliente.findAll">
+    	<query>select o from Pessoa o where o.tipoCadastroPessoa = 'CLIENTE'</query>
+    </named-query>
+    <named-query name="fornecedor.procurar">
+    	<query>select o from Pessoa o where o.tipoCadastroPessoa = 'FORNECEDOR' and (o.codigoPessoa like :filtro or o.nomePessoa like :filtro)</query>
+    </named-query>
+    <named-query name="laboratorio.procurar">
+    	<query>select o from Pessoa o where o.tipoCadastroPessoa = 'LABORATORIO' and (o.codigoPessoa like :filtro or o.nomePessoa like :filtro)</query>
+    </named-query>
+    <named-query name="cliente.procurar">
+    	<query>select o from Pessoa o where o.tipoCadastroPessoa = 'CLIENTE' and (o.codigoPessoa like :filtro or o.nomePessoa like :filtro)</query>
+    </named-query>
+    <named-query name="pessoa.procurar">
+    	<query>select o from Pessoa o where o.codigoPessoa like :filtro or o.nomePessoa like :filtro</query>
+    </named-query>
+    <named-query name="pessoa.buscarPorCodigo">
+    	<query>select o from Pessoa o where o.codigoPessoa = :codigo</query>
+    </named-query>
+    <named-query name="nfe.findAll">
+    	<query>select o from Nfe o</query>
+    </named-query>
+    <named-query name="ordemServico.findAll">
+    	<query>select o from OrdemServico o</query>
+    </named-query>
+    <named-query name="nfPagamento.findAll">
+    	<query>select o from NfPagamento o</query>
+    </named-query>
+    <named-query name="venda.findAll">
+    	<query>select o from Venda o</query>
+    </named-query>
+    <named-query name="venda.listaResumoVenda">
+    	<query>select o.vendaSq, o.dataVenda, sum(i.valorUnitarioItem*i.quantidadeItem) as valorVenda, sum(i.custoUnitarioItem*i.quantidadeItem) as valorCusto
+    	from Venda o join o.listaItem i 
+    	where o.dataVenda between :dataInicial and :dataFinal
+    	group by o.vendaSq, o.dataVenda</query>
+    </named-query>
+    <named-query name="duplicata.findAll">
+        <query>select o from Duplicata o</query>
+    </named-query>
+    <named-query name="duplicata.procurar">
+    	<query>select o from Duplicata o where o.numero like :filtro</query>
+    </named-query>
+    <named-query name="duplicata.emAberto">
+    	<query>select o from Duplicata o where o.dataPagamento is null</query>
+    </named-query>
+    <named-query name="duplicata.pagas">
+    	<query>select o from Duplicata o where o.dataPagamento is not null</query>
+    </named-query>
+</entity-mappings>

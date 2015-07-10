@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+<h:body>
+
+	<ui:composition template="template/commonLayout.xhtml">
+		<ui:define name="content">
+			<fieldset>
+				<legend>Registrar o Pagamento de Ordem de Serviço</legend>
+				<h:form id="form">
+					<h:panelGrid columns="2">
+
+						<p:outputLabel id="ol1" value="Número da Nota Fiscal" />
+						<pe:inputNumber id="in1"
+							value="#{nfPagamentoMB.nfPagamento.numero}" decimalPlaces="0" />
+
+						<p:outputLabel id="ol2" value="Valor da Nota Fiscal" />
+						<pe:inputNumber id="in2"
+							value="#{nfPagamentoMB.nfPagamento.valor}" decimalPlaces="2">
+							<p:ajax event="change" update="btnEnviar" />
+						</pe:inputNumber>
+
+						<p:outputLabel value="Data do Pagamento" />
+						<p:calendar value="#{nfPagamentoMB.nfPagamento.dataPagamento}"
+							pattern="dd/MM/yyyy" />
+					</h:panelGrid>
+					<p:spacer />
+					<p:dataTable value="#{nfPagamentoMB.nfPagamento.listaOrdemServico}"
+						var="os" id="osTable">
+						<f:facet name="header"> Lista de Ordem de Serviço 
+							<p:commandButton icon="ui-icon-plus"
+								update=":form:incluirOSDialog"
+								oncomplete="incluirOSDialog.show()" />
+						</f:facet>
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Nr da O.S." />
+							</f:facet>
+							<h:outputText value="#{os.ordemServicoSq}" />
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Valor da O.S." />
+							</f:facet>
+							<h:outputText value="#{os.valorCusto}" />
+						</p:column>
+
+						<p:column headerText="Opções" style="width:50px">
+							<p:commandButton icon="ui-icon-minus"
+								actionListener="#{nfPagamentoMB.removerOS(os)}"
+								update="osTable :form:btnEnviar" />
+						</p:column>
+						<f:facet name="footer">
+							<h:panelGrid columns="2">
+								<p:outputLabel value="Valor total informado: " />
+								<p:outputLabel value="#{nfPagamentoMB.somatoriaOS}">
+									<f:convertNumber type="currency" />
+								</p:outputLabel>
+								<p:outputLabel value="Valor restante: " />
+								<p:outputLabel value="#{nfPagamentoMB.valorRestanteOS}">
+									<f:convertNumber type="currency" />
+								</p:outputLabel>
+							</h:panelGrid>
+						</f:facet>
+					</p:dataTable>
+					<p:spacer />
+
+					<p:commandButton value="Enviar" id="btnEnviar"
+						action="#{nfPagamentoMB.salvar}"
+						disabled="#{nfPagamentoMB.somatoriaOS != nfPagamentoMB.nfPagamento.valor or nfPagamentoMB.nfPagamento.valor == 0}" />
+
+					<p:dialog modal="true" id="incluirOSDialog" header="Incluir O.S."
+						widgetVar="incluirOSDialog" showEffect="fade" hideEffect="explode"
+						dynamic="true">
+						<h:panelGrid columns="2">
+
+							<h:outputLabel value="Número da O.S." />
+							<pe:inputNumber id="in3" binding="#{input}" decimalPlaces="0" />
+
+							<p:commandButton value="Enviar"
+								action="#{nfPagamentoMB.adicionarOS(input.value)}"
+								oncomplete="if (args &amp;&amp; !args.validationFailed) incluirOSDialog.hide()"
+								update=":form:osTable :form:btnEnviar" ajax="true" />
+						</h:panelGrid>
+					</p:dialog>
+
+				</h:form>
+			</fieldset>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

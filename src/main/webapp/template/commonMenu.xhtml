@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:sec="http://www.springframework.org/security/tags">
+
+<body>
+	<ui:component>
+		<h:form>
+			<div class="menu">
+				<ul>
+					<sec:authorize ifAnyGranted="ROLE_USER">
+
+						<li><h:commandLink id="cl1" value="Importar uma Compra"
+								action="importarNFe" /></li>
+						<li><h:commandLink id="cl2" action="listarNFe"
+								value="Digitar / Alterar uma Compra" /></li>
+						<li><h:commandLink id="cl3" action="listarVenda"
+								value="Digitar / Alterar uma Venda" /></li>
+						<li><h:commandLink id="cl4" action="listarOS"
+								value="Digitar / Alterar uma O.S." /></li>
+						<li><h:commandLink id="cl12" action="listarDuplicata"
+								value="Dar Baixa em Duplicata" /></li>
+						<li><h:commandLink id="cl5"
+								value="Imprimir um Cupom de Entrega" action="imprimirVenda" /></li>
+						<li><h:commandLink id="cl9"
+								value="Enviar uma O.S. ao Laboratório" action="enviarOS" /></li>
+						<li><h:commandLink id="cl10"
+								value="Retornar uma O.S. do Laboratório" action="retornarOS" /></li>
+						<li><h:commandLink id="cl6" value="Imprimir O.S."
+								action="imprimirOS" /></li>
+						<li><h:commandLink id="cl11" value="Pagar O.S." action="pagarOS" /></li>
+						<li><h:commandLink id="cl7" value="Cadastro de Produtos"
+								action="listarProduto" /></li>
+						<li><h:commandLink id="cl8" value="Cadastro de Usuários"
+								action="listarUsuario" /></li>
+						<li><h:commandLink id="cl13" action="listarResumoVenda"
+								value="Resumo de Vendas" /></li>
+					</sec:authorize>
+					<li><a href="j_spring_security_logout">Sair</a></li>
+				</ul>
+			</div>
+		</h:form>
+	</ui:component>
+</body>
+</html>

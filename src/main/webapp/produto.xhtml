@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+<h:body>
+
+	<ui:composition template="template/commonLayout.xhtml">
+		<ui:define name="content">
+			<h:form id="form">
+				<fieldset>
+					<legend>
+						Lista de Produto
+						<p:commandButton icon="ui-icon-plus"
+							actionListener="#{produtoMB.incluirProduto}"
+							oncomplete="editarProdutoDialog.show()"
+							update=":form:editarProdutoDialog" />
+					</legend>
+					<p:dataTable value="#{produtoMB.listaProduto}" var="produto"
+						id="produtoTable">
+						<p:column headerText="Número">
+							<h:outputText value="#{produto.produtoSq}" />
+						</p:column>
+						<p:column headerText="Código">
+							<h:outputText value="#{produto.codigoProduto}" />
+						</p:column>
+						<p:column headerText="Descrição">
+							<h:outputText value="#{produto.descricaoProduto}" />
+						</p:column>
+						<p:column headerText="Quantidade">
+							<h:outputText value="#{produto.quantidadeProduto}" />
+						</p:column>
+						<p:column headerText="Custo Médio">
+							<h:outputText value="#{produto.custoMedioProduto}">
+								<f:convertNumber type="currency" groupingUsed="true"
+									minFractionDigits="2" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Editar">
+							<p:commandButton id="cb1" icon="ui-icon-pencil"
+								update=":form:editarProdutoDialog"
+								oncomplete="editarProdutoDialog.show()">
+								<f:setPropertyActionListener
+									target="#{produtoMB.produtoSelecionado}" value="#{produto}" />
+							</p:commandButton>
+						</p:column>
+					</p:dataTable>
+				</fieldset>
+
+				<p:dialog modal="true" id="editarProdutoDialog"
+					header="Editando produto #{produtoMB.produtoSelecionado.produtoSq}"
+					widgetVar="editarProdutoDialog" showEffect="explode"
+					hideEffect="explode" dynamic="true">
+					<h:panelGrid columns="2">
+
+						<h:outputLabel value="Número do Produto" />
+						<p:inputText value="#{produtoMB.produtoSelecionado.produtoSq}"
+							readonly="true" />
+
+						<h:outputLabel value="Código do Produto" />
+						<p:inputText value="#{produtoMB.produtoSelecionado.codigoProduto}" />
+
+						<h:outputLabel value="Descrição do Produto" />
+						<p:inputTextarea
+							value="#{produtoMB.produtoSelecionado.descricaoProduto}" />
+
+						<h:outputLabel value="Custo médio" />
+						<pe:inputNumber id="in1"
+							value="#{produtoMB.produtoSelecionado.custoMedioProduto}"
+							decimalPlaces="2" />
+
+						<h:outputLabel value="Quantidade Estoque" />
+						<pe:inputNumber id="in2"
+							value="#{produtoMB.produtoSelecionado.quantidadeProduto}"
+							decimalPlaces="0" />
+
+					</h:panelGrid>
+
+					<p:commandButton value="Enviar"
+						actionListener="#{produtoMB.gravarProduto}"
+						oncomplete="if (args &amp;&amp; !args.validationFailed) editarProdutoDialog.hide()"
+						update=":form:produtoTable" />
+				</p:dialog>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

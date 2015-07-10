@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<NFe xmlns="http://www.portalfiscal.inf.br/nfe">
+	<infNFe versao="2.00" Id="NFe35120709068908000101550000000000111000000123">
+		<ide>
+			<cUF>35</cUF>
+			<cNF>00000012</cNF>
+			<natOp>VENDAS</natOp>
+			<indPag>2</indPag>
+			<mod>55</mod>
+			<serie>0</serie>
+			<nNF>11</nNF>
+			<dhEmi>2012-07-25</dhEmi>
+			<dSaiEnt>2012-07-25</dSaiEnt>
+			<tpNF>1</tpNF>
+			<cMunFG>3550308</cMunFG>
+			<tpImp>1</tpImp>
+			<tpEmis>1</tpEmis>
+			<cDV>3</cDV>
+			<tpAmb>1</tpAmb>
+			<finNFe>1</finNFe>
+			<procEmi>0</procEmi>
+			<verProc>1</verProc>
+		</ide>
+		<emit>
+			<CNPJ>09068908000101</CNPJ>
+			<xNome>SERPA-SYS SERVICOS DE INFORMATICA LTDA. - ME</xNome>
+			<enderEmit>
+				<xLgr>RUA CALOGERO CALIA</xLgr>
+				<nro>633</nro>
+				<xBairro>VILA SANTO ESTEFANO</xBairro>
+				<cMun>3550308</cMun>
+				<xMun>SAO PAULO</xMun>
+				<UF>SP</UF>
+				<CEP>04152101</CEP>
+				<cPais>1058</cPais>
+				<xPais>Brasil</xPais>
+			</enderEmit>
+			<IE>145240136117</IE>
+			<CRT>1</CRT>
+		</emit>
+		<dest>
+			<CPF>22061517820</CPF>
+			<xNome>CONSUMIDOR</xNome>
+			<enderDest>
+				<xLgr>RUA CALOGERO CALIA</xLgr>
+				<nro>633</nro>
+				<xBairro>VILA SANTO ESTEFANO</xBairro>
+				<cMun>3550308</cMun>
+				<xMun>SAO PAULO</xMun>
+				<UF>SP</UF>
+				<CEP>04152101</CEP>
+				<cPais>1058</cPais>
+				<xPais>BRASIL</xPais>
+			</enderDest>
+			<IE />
+		</dest>
+		<det nItem="1">
+			<prod>
+				<cProd>CP28257M</cProd>
+				<cEAN />
+				<xProd>COLORS QUADRADO com cristais.</xProd>
+				<NCM>91021190</NCM>
+				<CFOP>5102</CFOP>
+				<uCom>UN</uCom>
+				<qCom>1.0000</qCom>
+				<vUnCom>159.0000000000</vUnCom>
+				<vProd>159.00</vProd>
+				<cEANTrib />
+				<uTrib>UN</uTrib>
+				<qTrib>1.0000</qTrib>
+				<vUnTrib>159.0000000000</vUnTrib>
+				<indTot>1</indTot>
+			</prod>
+			<imposto>
+				<ICMS>
+					<ICMSSN102>
+						<orig>0</orig>
+						<CSOSN>102</CSOSN>
+					</ICMSSN102>
+				</ICMS>
+				<PIS>
+					<PISOutr>
+						<CST>99</CST>
+						<vBC>0.00</vBC>
+						<pPIS>0.00</pPIS>
+						<vPIS>0.00</vPIS>
+					</PISOutr>
+				</PIS>
+				<COFINS>
+					<COFINSOutr>
+						<CST>99</CST>
+						<vBC>0.00</vBC>
+						<pCOFINS>0.00</pCOFINS>
+						<vCOFINS>0.00</vCOFINS>
+					</COFINSOutr>
+				</COFINS>
+			</imposto>
+		</det>
+		<total>
+			<ICMSTot>
+				<vBC>0.00</vBC>
+				<vICMS>0.00</vICMS>
+				<vBCST>0.00</vBCST>
+				<vST>0.00</vST>
+				<vProd>159.00</vProd>
+				<vFrete>0.00</vFrete>
+				<vSeg>0.00</vSeg>
+				<vDesc>0.00</vDesc>
+				<vII>0.00</vII>
+				<vIPI>0.00</vIPI>
+				<vPIS>0.00</vPIS>
+				<vCOFINS>0.00</vCOFINS>
+				<vOutro>0.00</vOutro>
+				<vNF>159.00</vNF>
+			</ICMSTot>
+		</total>
+		<transp>
+			<modFrete>0</modFrete>
+		</transp>
+		<cobr>
+			<fat>
+				<vOrig>159.00</vOrig>
+				<vLiq>159.00</vLiq>
+			</fat>
+			<dup>
+				<nDup>11 1/1</nDup>
+				<dVenc>2012-07-25</dVenc>
+				<vDup>159.00</vDup>
+			</dup>
+		</cobr>
+	</infNFe>
+	<Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+		<SignedInfo>
+			<CanonicalizationMethod
+				Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+			<SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+			<Reference URI="#NFe35120709068908000101550000000000111000000123">
+				<Transforms>
+					<Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+					<Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+				</Transforms>
+				<DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+				<DigestValue>DjM7n3ASMwR83raTz04E0Uvh484=</DigestValue>
+			</Reference>
+		</SignedInfo>
+		<SignatureValue>XoJcuj5F7biHf41hR00z7ClesxYRdCJoIm+4MDcrL7JX71ohozJrVx5NWAB2IHQ20RrnxJu/erleZg7qr+m/DPAQT4NMNlN5X2UvyPFgVTu8havSqJ45gp1lRYfwDeDgZIMt0ru+AZ+01HyEpRDzyHL3nrB2E8ZH0pjawlLelxoMVRcuYjZQfje2+U0bY5Xdq5yQIlCOVxgrb8W5w8ZjLgF8rbfBg5Of4+nOElfdWgByg2Qd3WUtGqdPGECZtVy5WLto4EkITtH8ITk6PueQmQsMM3o7fCiv3qAcyLc1smmpYiEqzAJIdj9vZ5/JZCkJpg/ZAXv+LklTSdSdvQXVFA==
+		</SignatureValue>
+		<KeyInfo>
+			<X509Data>
+				<X509Certificate>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
+				</X509Certificate>
+			</X509Data>
+		</KeyInfo>
+	</Signature>
+</NFe>

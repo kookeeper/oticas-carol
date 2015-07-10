@@ -1,0 +1,17 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+	<h:panelGrid columns="2" cellpadding="5">
+		<h:outputText value="Telefone: " />
+		<h:outputText value="#{pessoa.telefoneFixoPessoa}" />
+		<h:outputText value="Celular: " />
+		<h:outputText value="#{pessoa.telefoneCelularPessoa}" />
+		<h:outputText value="Endereço: " />
+		<h:outputText
+			value="#{pessoa.enderecoPessoa.logradouro} #{pessoa.enderecoPessoa.numero}" />
+	</h:panelGrid>
+</ui:composition>

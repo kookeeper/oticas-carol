@@ -1,0 +1,32 @@
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/security
+	http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+
+	<global-method-security secured-annotations="enabled">
+	</global-method-security>
+
+	<http auto-config="true">
+
+		<!-- Don't set any role restrictions on login.jsp -->
+		<intercept-url pattern="/login.jsf" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<intercept-url pattern="/logout.jsf" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+
+		<!-- Restrict access to ALL other pages -->
+		<intercept-url pattern="/**" access="ROLE_USER" />
+
+		<!-- Set the login page and what to do if login fails
+		<form-login login-page="/login.jsf" authentication-failure-url="/logout.jsf"
+			default-target-url="/menuPrincipal.jsf" username-parameter="username"
+			password-parameter="password" />
+		<logout logout-success-url="/login.jsf" />
+ -->
+	</http>
+
+	<authentication-manager>
+		<authentication-provider user-service-ref="loginServiceImpl" />
+	</authentication-manager>
+
+</beans:beans>

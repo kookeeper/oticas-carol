@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<h:body>
+
+	<ui:composition template="template/commonLayout.xhtml">
+		<ui:define name="content">
+			<fieldset>
+				<legend>Retornar uma Ordem de Serviço do Laboratório</legend>
+				<h:form id="form">
+					<h:panelGrid columns="2">
+
+						<h:outputLabel id="ol1" value="Número da Ordem de Serviço" />
+						<pe:inputNumber id="in1" value="#{ordemServicoMB.numeroOS}"
+							decimalPlaces="0" />
+
+						<p:commandButton value="Pesquisar"
+							action="#{ordemServicoMB.pesquisarOSRetorno}" update="group1" />
+
+					</h:panelGrid>
+
+					<h:panelGroup id="group1">
+						<h:panelGrid columns="2"
+							rendered="#{ordemServicoMB.osSelecionada.ordemServicoSq != null}">
+							<h:outputLabel value="Data do Retorno" />
+							<p:calendar value="#{ordemServicoMB.osSelecionada.dataRetorno}"
+								pattern="dd/MM/yyyy"
+								disabled="#{not empty ordemServicoMB.osSelecionada.dataRetorno}" />
+
+							<h:outputLabel value="Valor Custo" />
+							<pe:inputNumber id="in2"
+								value="#{ordemServicoMB.osSelecionada.valorCusto}"
+								decimalPlaces="2"
+								disabled="#{not empty ordemServicoMB.osSelecionada.dataRetorno}" />
+
+							<p:commandButton value="Registrar Retorno"
+								action="#{ordemServicoMB.retornarOS}"
+								disabled="#{not empty ordemServicoMB.osSelecionada.dataRetorno}" />
+
+						</h:panelGrid>
+					</h:panelGroup>
+				</h:form>
+			</fieldset>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

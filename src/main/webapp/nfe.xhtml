@@ -1,0 +1,192 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+<h:body>
+
+	<ui:composition template="template/commonLayout.xhtml">
+		<ui:define name="content">
+			<h:form id="form">
+				<fieldset>
+					<legend>
+						Lista de Nota Fiscal Eletrônica
+						<p:commandButton icon="ui-icon-plus"
+							actionListener="#{nFeMB.incluirNFe}"
+							oncomplete="editarNFeDialog.show()"
+							update=":form:editarNFeDialog" />
+					</legend>
+					<p:dataTable value="#{nFeMB.listaNFe}" var="nfe" id="nfeTable">
+						<p:column headerText="Número">
+							<h:outputText value="#{nfe.numeroNFe}" />
+						</p:column>
+
+						<p:column headerText="Valor">
+							<h:outputText value="#{nfe.valorNFe}">
+								<f:convertNumber type="currency" groupingUsed="true"
+									minFractionDigits="2" />
+								<h:outputFormat value="#{nfe.valorNFe}"></h:outputFormat>
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Data Emissão">
+							<h:outputText value="#{nfe.dataEmissaoNFe}">
+								<f:convertDateTime type="date" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Fornecedor">
+							<h:outputText value="#{nfe.fornecedorNFe.nomePessoa}" />
+						</p:column>
+						<p:column headerText="Editar">
+							<p:commandButton id="cb1" icon="ui-icon-pencil"
+								action="#{nFeMB.editarNFe}" update=":form:editarNFeDialog"
+								oncomplete="editarNFeDialog.show()">
+								<f:setPropertyActionListener target="#{nFeMB.nfeSq}"
+									value="#{nfe.nfeSq}" />
+							</p:commandButton>
+						</p:column>
+					</p:dataTable>
+				</fieldset>
+
+				<p:dialog modal="true" id="editarNFeDialog"
+					header="Editando NFe #{nFeMB.nfeSelecionada.numeroNFe}"
+					widgetVar="editarNFeDialog" showEffect="explode"
+					hideEffect="explode" dynamic="true">
+					<h:panelGrid columns="2">
+						<h:outputLabel value="Número da NFe" />
+						<p:inputText value="#{nFeMB.nfeSelecionada.numeroNFe}" />
+						<h:outputLabel value="Valor da NFe" />
+						<p:inputText value="#{nFeMB.nfeSelecionada.valorNFe}" />
+						<h:outputLabel value="Data de Emissão" />
+						<p:calendar value="#{nFeMB.nfeSelecionada.dataEmissaoNFe}"
+							pattern="dd/MM/yyyy" />
+						<h:outputLabel value="Fornecedor" />
+						<h:panelGroup>
+							<p:autoComplete value="#{nFeMB.nfeSelecionada.fornecedorNFe}"
+								completeMethod="#{pessoaMB.completarPessoa}" var="pessoa"
+								itemLabel="#{pessoa.nomePessoa}" itemValue="#{pessoa}"
+								converter="pessoaConverter" forceSelection="true">
+								<p:column style="width:10%">
+									<h:outputText value="#{pessoa.pessoaSq}" />
+								</p:column>
+
+								<p:column>
+									<h:outputText value="#{pessoa.nomePessoa}" />
+								</p:column>
+								<f:facet name="itemtip">
+									<ui:include src="panelGridPessoa.xhtml" />
+								</f:facet>
+							</p:autoComplete>
+							<p:commandButton icon="ui-icon-pencil"
+								oncomplete="edtPessoaDialog.show()"
+								update=":formPessoa:editarPessoaDialog">
+								<f:setPropertyActionListener
+									target="#{pessoaMB.pessoaSelecionada}"
+									value="#{nFeMB.nfeSelecionada.fornecedorNFe}" />
+							</p:commandButton>
+							<p:commandButton icon="ui-icon-plus"
+								actionListener="#{pessoaMB.incluirPessoa}"
+								oncomplete="edtPessoaDialog.show()"
+								update=":formPessoa:editarPessoaDialog" />
+						</h:panelGroup>
+					</h:panelGrid>
+
+					<fieldset>
+						<legend>
+							Itens
+							<p:commandButton icon="ui-icon-plus"
+								actionListener="#{nFeMB.incluirItem}"
+								oncomplete="editarItemDialog.show()"
+								update=":form:editarItemDialog" />
+						</legend>
+						<p:dataTable value="#{nFeMB.nfeSelecionada.listaItemNFe}"
+							id="itens" var="item">
+							<p:column headerText="Nr Item">
+								<p:outputLabel value="#{item.numeroItem}" />
+							</p:column>
+							<p:column headerText="Produto">
+								<p:outputLabel value="#{item.produtoItem.descricaoProduto}" />
+							</p:column>
+							<p:column headerText="Quantidade">
+								<p:outputLabel value="#{item.quantidadeItem}">
+									<f:convertNumber type="number" groupingUsed="true"
+										minFractionDigits="0" />
+								</p:outputLabel>
+							</p:column>
+							<p:column headerText="Valor Unitário">
+								<p:outputLabel value="#{item.valorUnitarioItem}">
+									<f:convertNumber type="currency" groupingUsed="true"
+										minFractionDigits="2" />
+								</p:outputLabel>
+							</p:column>
+							<p:column headerText="Editar">
+								<p:commandButton icon="ui-icon-pencil"
+									oncomplete="editarItemDialog.show()">
+									<f:setPropertyActionListener target="#{nFeMB.itemSelecionado}"
+										value="#{item}" />
+								</p:commandButton>
+								<p:commandButton icon="ui-icon-minus" update=":form:itens"
+									actionListener="#{nFeMB.excluirItem(item)}">
+									<p:confirm header="Confirmação" message="Excluir Item?"
+										icon="ui-icon-alert" />
+								</p:commandButton>
+							</p:column>
+						</p:dataTable>
+					</fieldset>
+					<p:commandButton value="Enviar" action="#{nFeMB.gravarNFe}"
+						oncomplete="if (args &amp;&amp; !args.validationFailed) editarNFeDialog.hide()"
+						update=":form:nfeTable" />
+				</p:dialog>
+
+				<p:dialog modal="true" id="editarItemDialog"
+					header="Editando item #{nFeMB.itemSelecionado.numeroItem}"
+					widgetVar="editarItemDialog" showEffect="explode"
+					hideEffect="explode" dynamic="true">
+					<h:panelGrid>
+						<h:outputLabel value="Produto" />
+						<p:autoComplete value="#{nFeMB.itemSelecionado.produtoItem}"
+							completeMethod="#{produtoMB.completarProduto}" var="produto"
+							itemLabel="#{produto.descricaoProduto}" itemValue="#{produto}"
+							converter="produtoConverter" forceSelection="true">
+							<p:column style="width:10%">
+								<h:outputText value="#{produto.produtoSq}" />
+							</p:column>
+
+							<p:column>
+								<h:outputText value="#{produto.descricaoProduto}" />
+							</p:column>
+						</p:autoComplete>
+
+						<h:outputLabel value="Quantidade" />
+						<pe:inputNumber id="in3"
+							value="#{nFeMB.itemSelecionado.quantidadeItem}" decimalPlaces="0" />
+
+						<h:outputLabel value="Valor Unitário" />
+						<pe:inputNumber id="in4"
+							value="#{nFeMB.itemSelecionado.valorUnitarioItem}"
+							decimalPlaces="2" />
+
+						<p:commandButton value="Enviar" action="#{nFeMB.gravarItem}"
+							oncomplete="if (args &amp;&amp; !args.validationFailed) editarItemDialog.hide()"
+							update=":form:itens" ajax="true" />
+					</h:panelGrid>
+				</p:dialog>
+
+			</h:form>
+
+			<h:form id="formPessoa">
+				<p:dialog modal="true" id="editarPessoaDialog"
+					header="Incluindo Fornecedor" widgetVar="edtPessoaDialog"
+					showEffect="explode" hideEffect="explode" dynamic="true">
+					<ui:include src="pessoa.xhtml" />
+				</p:dialog>
+			</h:form>
+
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

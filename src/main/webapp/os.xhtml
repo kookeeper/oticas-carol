@@ -1,0 +1,460 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+<h:body>
+
+	<ui:composition template="template/commonLayout.xhtml">
+		<ui:define name="content">
+			<h:form id="form">
+				<fieldset>
+					<legend>
+						Lista de Ordem de Serviço
+						<p:commandButton icon="ui-icon-plus"
+							actionListener="#{ordemServicoMB.incluirOS}"
+							oncomplete="editarOSDialog.show()" update=":form:editarOSDialog" />
+					</legend>
+					<p:dataTable value="#{ordemServicoMB.listaOS}" var="os"
+						id="osTable">
+						<p:column headerText="Número">
+							<h:outputText value="#{os.ordemServicoSq}" />
+						</p:column>
+						<p:column headerText="Valor Cobrado">
+							<h:outputText value="#{os.valorCobrado}">
+								<f:convertNumber type="currency" groupingUsed="true"
+									minFractionDigits="2" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Valor Custo">
+							<h:outputText value="#{os.valorCusto}">
+								<f:convertNumber type="currency" groupingUsed="true"
+									minFractionDigits="2" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Data Envio">
+							<h:outputText value="#{os.dataEnvio}">
+								<f:convertDateTime type="date" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Data Retorno">
+							<h:outputText value="#{os.dataRetorno}">
+								<f:convertDateTime type="date" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Laboratório">
+							<h:outputText value="#{os.laboratorio.nomePessoa}" />
+						</p:column>
+						<p:column headerText="Dt Pagamento">
+							<h:outputText value="#{os.nfPagamento.dataPagamento}">
+								<f:convertDateTime type="date" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Editar">
+							<p:commandButton id="cb1" icon="ui-icon-pencil"
+								update=":form:editarOSDialog" oncomplete="editarOSDialog.show()">
+								<f:setPropertyActionListener
+									target="#{ordemServicoMB.osSelecionada}" value="#{os}" />
+							</p:commandButton>
+						</p:column>
+					</p:dataTable>
+				</fieldset>
+
+				<p:dialog modal="true" id="editarOSDialog"
+					header="Editando O.S. #{ordemServicoMB.osSelecionada.ordemServicoSq}"
+					widgetVar="editarOSDialog" showEffect="explode" height="400px"
+					hideEffect="explode" dynamic="true">
+
+					<h:panelGrid>
+
+						<p:panelGrid>
+							<p:row>
+								<p:column>
+									<h:outputLabel value="Número da O.S." />
+								</p:column>
+								<p:column>
+									<p:inputText
+										value="#{ordemServicoMB.osSelecionada.ordemServicoSq}"
+										readonly="true" />
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column>
+									<h:outputLabel value="Laboratório" />
+								</p:column>
+								<p:column>
+									<p:autoComplete
+										value="#{ordemServicoMB.osSelecionada.laboratorio}"
+										completeMethod="#{pessoaMB.completarPessoa}" var="pessoa"
+										itemLabel="#{pessoa.nomePessoa}" itemValue="#{pessoa}"
+										converter="pessoaConverter" forceSelection="true">
+										<p:column style="width:10%">
+											<h:outputText value="#{pessoa.pessoaSq}" />
+										</p:column>
+
+										<p:column>
+											<h:outputText value="#{pessoa.nomePessoa}" />
+										</p:column>
+										<f:facet name="itemtip">
+											<h:panelGrid columns="2" cellpadding="5">
+												<h:outputText value="Telefone: " />
+												<h:outputText value="#{pessoa.telefoneFixoPessoa}" />
+												<h:outputText value="Celular: " />
+												<h:outputText value="#{pessoa.telefoneCelularPessoa}" />
+												<h:outputText value="Endereço: " />
+												<h:outputText
+													value="#{pessoa.enderecoPessoa.logradouro} #{pessoa.enderecoPessoa.numero}" />
+											</h:panelGrid>
+										</f:facet>
+									</p:autoComplete>
+									<p:commandButton icon="ui-icon-pencil"
+										oncomplete="edtPessoaDialog.show()"
+										update=":form:editarPessoaDialog">
+										<f:setPropertyActionListener
+											target="#{pessoaMB.pessoaSelecionada}"
+											value="#{ordemServicoMB.osSelecionada.laboratorio}" />
+									</p:commandButton>
+									<p:commandButton icon="ui-icon-plus"
+										actionListener="#{pessoaMB.incluirPessoa}"
+										oncomplete="edtPessoaDialog.show()"
+										update=":form:editarPessoaDialog" />
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column>
+									<h:outputLabel value="Tipo de Lente" />
+								</p:column>
+								<p:column>
+									<p:inputText value="#{ordemServicoMB.osSelecionada.tipoLente}" />
+								</p:column>
+							</p:row>
+						</p:panelGrid>
+						<p:panelGrid>
+							<p:row>
+								<p:column>
+									<h:outputLabel value="Com Montagem" />
+								</p:column>
+								<p:column>
+									<p:selectBooleanCheckbox
+										value="#{ordemServicoMB.osSelecionada.comMontagem}" />
+								</p:column>
+								<p:column>
+									<h:outputLabel value="Sem Montagem" />
+								</p:column>
+								<p:column>
+									<p:selectBooleanCheckbox
+										value="#{ordemServicoMB.osSelecionada.semMontagem}" />
+								</p:column>
+								<p:column>
+									<h:outputLabel value="Pronta" />
+								</p:column>
+								<p:column>
+									<p:selectBooleanCheckbox
+										value="#{ordemServicoMB.osSelecionada.pronta}" />
+								</p:column>
+								<p:column>
+									<h:outputLabel value="Surfaçada" />
+								</p:column>
+								<p:column>
+									<p:selectBooleanCheckbox
+										value="#{ordemServicoMB.osSelecionada.surfacada}" />
+								</p:column>
+							</p:row>
+						</p:panelGrid>
+						<p:panelGrid>
+							<p:row>
+								<p:column>
+									<h:outputLabel value="Colorir Que Tom" />
+								</p:column>
+								<p:column>
+									<p:inputText value="#{ordemServicoMB.osSelecionada.tomColorir}" />
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column>
+									<h:outputLabel value="Qual Anti Reflexo" />
+								</p:column>
+								<p:column>
+									<p:inputText
+										value="#{ordemServicoMB.osSelecionada.antiReflexo}" />
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column>
+									<h:outputLabel value="Anti Risco" />
+								</p:column>
+								<p:column>
+									<p:inputText value="#{ordemServicoMB.osSelecionada.antiRisco}" />
+								</p:column>
+							</p:row>
+
+						</p:panelGrid>
+						<p:spacer />
+						<p:panelGrid>
+							<p:row>
+								<p:column rowspan="3">PARA <br /> LONGE</p:column>
+								<p:column></p:column>
+								<p:column>
+									<h:outputLabel value="Esférico" />
+								</p:column>
+								<p:column>
+									<h:outputLabel value="Cilíndrico" />
+								</p:column>
+								<p:column>
+									<h:outputLabel value="Eixo" />
+								</p:column>
+								<p:column>
+									<h:outputLabel value="Adição" />
+								</p:column>
+								<p:column>
+									<h:outputLabel value="D.N.P." />
+								</p:column>
+								<p:column>
+									<h:outputLabel value="Altura" />
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column>
+									<h:outputLabel value="O.D." />
+								</p:column>
+								<p:column>
+									<p:inputText
+										value="#{ordemServicoMB.osSelecionada.odLongeEsferico}"
+										style="width:40px;" />
+								</p:column>
+								<p:column>
+									<p:inputText
+										value="#{ordemServicoMB.osSelecionada.odLongeCilindrico}"
+										style="width:40px;" />
+								</p:column>
+								<p:column>
+									<p:inputText
+										value="#{ordemServicoMB.osSelecionada.odLongeEixo}"
+										style="width:40px;" />
+								</p:column>
+								<p:column>
+									<p:inputText
+										value="#{ordemServicoMB.osSelecionada.odLongeAdicao}"
+										style="width:40px;" />
+								</p:column>
+								<p:column>
+									<p:inputText value="#{ordemServicoMB.osSelecionada.odLongeDNP}"
+										style="width:40px;" />
+								</p:column>
+								<p:column>
+									<p:inputText
+										value="#{ordemServicoMB.osSelecionada.odLongeAltura}"
+										style="width:40px;" />
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column>
+									<h:outputLabel value="O.E." />
+								</p:column>
+								<p:column>
+									<p:inputText
+										value="#{ordemServicoMB.osSelecionada.oeLongeEsferico}"
+										style="width:40px;" />
+								</p:column>
+								<p:column>
+									<p:inputText
+										value="#{ordemServicoMB.osSelecionada.oeLongeCilindrico}"
+										style="width:40px;" />
+								</p:column>
+								<p:column>
+									<p:inputText
+										value="#{ordemServicoMB.osSelecionada.oeLongeEixo}"
+										style="width:40px;" />
+								</p:column>
+								<p:column>
+									<p:inputText
+										value="#{ordemServicoMB.osSelecionada.oeLongeAdicao}"
+										style="width:40px;" />
+								</p:column>
+								<p:column>
+									<p:inputText value="#{ordemServicoMB.osSelecionada.oeLongeDNP}"
+										style="width:40px;" />
+								</p:column>
+								<p:column>
+									<p:inputText
+										value="#{ordemServicoMB.osSelecionada.oeLongeAltura}"
+										style="width:40px;" />
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column rowspan="3">PARA <br /> PERTO</p:column>
+								<p:column>
+									<h:outputLabel value="O.D." />
+								</p:column>
+								<p:column>
+									<p:inputText
+										value="#{ordemServicoMB.osSelecionada.odPertoEsferico}"
+										style="width:40px;" />
+								</p:column>
+								<p:column>
+									<p:inputText
+										value="#{ordemServicoMB.osSelecionada.odPertoCilindrico}"
+										style="width:40px;" />
+								</p:column>
+								<p:column>
+									<p:inputText
+										value="#{ordemServicoMB.osSelecionada.odPertoEixo}"
+										style="width:40px;" />
+								</p:column>
+								<p:column>
+									<p:inputText
+										value="#{ordemServicoMB.osSelecionada.odPertoAdicao}"
+										style="width:40px;" />
+								</p:column>
+								<p:column>
+									<p:inputText value="#{ordemServicoMB.osSelecionada.odPertoDNP}"
+										style="width:40px;" />
+								</p:column>
+								<p:column>
+									<p:inputText
+										value="#{ordemServicoMB.osSelecionada.odPertoAltura}"
+										style="width:40px;" />
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column>
+									<h:outputLabel value="O.E." />
+								</p:column>
+								<p:column>
+									<p:inputText
+										value="#{ordemServicoMB.osSelecionada.oePertoEsferico}"
+										style="width:40px;" />
+								</p:column>
+								<p:column>
+									<p:inputText
+										value="#{ordemServicoMB.osSelecionada.oePertoCilindrico}"
+										style="width:40px;" />
+								</p:column>
+								<p:column>
+									<p:inputText
+										value="#{ordemServicoMB.osSelecionada.oePertoEixo}"
+										style="width:40px;" />
+								</p:column>
+								<p:column>
+									<p:inputText
+										value="#{ordemServicoMB.osSelecionada.oePertoAdicao}"
+										style="width:40px;" />
+								</p:column>
+								<p:column>
+									<p:inputText value="#{ordemServicoMB.osSelecionada.oePertoDNP}"
+										style="width:40px;" />
+								</p:column>
+								<p:column>
+									<p:inputText
+										value="#{ordemServicoMB.osSelecionada.oePertoAltura}"
+										style="width:40px;" />
+								</p:column>
+							</p:row>
+						</p:panelGrid>
+						<p:panelGrid>
+							<p:row>
+								<p:column>A</p:column>
+								<p:column>Horizontal</p:column>
+								<p:column>
+									<p:inputText
+										value="#{ordemServicoMB.osSelecionada.medidaLenteHorizontal}"
+										style="width:40px;" />
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column>B</p:column>
+								<p:column>Vertical</p:column>
+								<p:column>
+									<p:inputText
+										value="#{ordemServicoMB.osSelecionada.medidaLenteVertical}"
+										style="width:40px;" />
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column>C</p:column>
+								<p:column>Ponte</p:column>
+								<p:column>
+									<p:inputText
+										value="#{ordemServicoMB.osSelecionada.medidaLentePonte}"
+										style="width:40px;" />
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column>D</p:column>
+								<p:column>Diagonal</p:column>
+								<p:column>
+									<p:inputText
+										value="#{ordemServicoMB.osSelecionada.medidaLenteDiagonal}"
+										style="width:40px;" />
+								</p:column>
+							</p:row>
+						</p:panelGrid>
+
+						<p:panelGrid>
+							<p:row>
+								<p:column>
+									<p:selectBooleanCheckbox
+										value="#{ordemServicoMB.osSelecionada.acetato}" />
+									<h:outputLabel value="Acetato" />
+								</p:column>
+								<p:column>
+									<p:selectBooleanCheckbox
+										value="#{ordemServicoMB.osSelecionada.metal}" />
+									<h:outputLabel value="Metal" />
+								</p:column>
+								<p:column>
+									<p:selectBooleanCheckbox
+										value="#{ordemServicoMB.osSelecionada.nylon}" />
+									<h:outputLabel value="Nylon" />
+								</p:column>
+								<p:column>
+									<p:selectBooleanCheckbox
+										value="#{ordemServicoMB.osSelecionada.fioAco}" />
+									<h:outputLabel value="Fio de Aço" />
+								</p:column>
+								<p:column>
+									<p:selectBooleanCheckbox
+										value="#{ordemServicoMB.osSelecionada.baugriff}" />
+									<h:outputLabel value="Baugriff" />
+								</p:column>
+								<p:column>
+									<p:selectBooleanCheckbox
+										value="#{ordemServicoMB.osSelecionada.oculosSeguranca}" />
+									<h:outputLabel value="Óculos de Segurança" />
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column colspan="6">
+									<h:outputLabel value="Observações" />
+									<p:inputTextarea
+										value="#{ordemServicoMB.osSelecionada.observacao}" rows="10"
+										style="width:100%" />
+								</p:column>
+							</p:row>
+						</p:panelGrid>
+
+						<h:panelGrid>
+							<p:commandButton value="Enviar"
+								action="#{ordemServicoMB.gravarOS}"
+								oncomplete="if (args &amp;&amp; !args.validationFailed) editarOSDialog.hide()"
+								update=":form:osTable" ajax="true" />
+						</h:panelGrid>
+
+					</h:panelGrid>
+				</p:dialog>
+				<p:dialog modal="true" id="editarPessoaDialog"
+					header="Incluindo Laboratório" widgetVar="edtPessoaDialog"
+					showEffect="explode" hideEffect="explode" dynamic="true">
+					<ui:include src="pessoa.xhtml" />
+				</p:dialog>
+
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

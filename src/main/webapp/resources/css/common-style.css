@@ -1,0 +1,23 @@
+div#header {
+}
+
+div#middle {
+	}
+
+div#menu {
+	float: left;
+	width: 20%;
+	overflow: hidden;
+}
+
+div#content {
+	float: left;
+	height: 500px;
+	width: 80%;
+	overflow: auto;
+}
+
+div#footer {
+	position: absolute;
+	bottom: 0px;
+}

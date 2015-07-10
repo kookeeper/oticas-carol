@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<body>
+	<ui:composition>
+
+		<div class="center">
+			<p class="copy">
+				<img src="http://www.oticascarol.com.br/images/logo-footer.jpg"
+					height="21" width="91" alt="&Oacute;ticas Carol"
+					title="&Oacute;ticas Carol" border="0" /> &copy; 2014
+				&Oacute;ticas Carol. Todos os direitos reservados.
+			</p>
+		</div>
+		<h:outputLink value="#{request.contextPath}/j_spring_security_logout">Logout</h:outputLink>
+
+		<h:form>
+			<p:confirmDialog id="confirmDialog" showEffect="fade" global="true"
+				hideEffect="explode">
+				<p:commandButton value="Sim" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="Não" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
+		</h:form>
+	</ui:composition>
+</body>
+</html>

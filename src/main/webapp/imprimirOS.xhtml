@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+<h:body>
+
+	<ui:composition template="template/commonLayout.xhtml">
+		<ui:define name="content">
+			<fieldset>
+				<legend>Imprimir uma Ordem de Serviço</legend>
+				<h:form>
+					<p:outputLabel id="ol1" value="Número da Ordem de Serviço" />
+					<pe:inputNumber id="in1" binding="#{numeroOS}" decimalPlaces="0"
+						required="true" validator="ordemServicoExisteValidator" />
+					<p:commandButton value="Enviar" update=":pdfForm" />
+				</h:form>
+			</fieldset>
+
+			<h:form id="pdfForm">
+				<p:media value="#{viewPDF.ordemServico}" player="pdf" height="300px"
+					width="100%">
+					<f:param name="id" value="#{numeroOS.value}" />
+				</p:media>
+			</h:form>
+
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

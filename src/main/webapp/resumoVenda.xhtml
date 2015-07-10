@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+<h:body>
+
+	<ui:composition template="template/commonLayout.xhtml">
+		<ui:define name="content">
+			<h:form id="form">
+				<fieldset>
+					<legend>Resumo de Vendas</legend>
+
+					<fieldset>
+						<h:panelGrid columns="4">
+							<p:outputLabel value="Intervalo de Pesquisa:" />
+							<p:calendar pattern="dd/MM/yyyy" binding="#{dataInicial}"
+								maxdate="today">
+								<p:ajax event="dateSelect" update="dataFinal" />
+							</p:calendar>
+							<p:calendar pattern="dd/MM/yyyy" binding="#{dataFinal}"
+								maxdate="today" id="dataFinal" mindate="#{dataInicial.value}" />
+							<p:spacer />
+							<p:commandButton value="Filtrar" update="vendaTable"
+								actionListener="#{vendaMB.filtrarResumoVenda(dataInicial.value, dataFinal.value)}" />
+						</h:panelGrid>
+					</fieldset>
+					<p:spacer />
+					<p:dataTable value="#{vendaMB.listaResumoVenda}" var="venda"
+						id="vendaTable">
+						<p:column headerText="Número">
+							<h:outputText value="#{venda.numeroVenda}" />
+						</p:column>
+						<p:column headerText="Data Venda">
+							<h:outputText value="#{venda.dataVenda}">
+								<f:convertDateTime type="date" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Valor Venda" style="text-align:center">
+							<h:outputText value="#{venda.valorVenda}">
+								<f:convertNumber type="currency" groupingUsed="true"
+									minFractionDigits="2" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Valor Custo" style="text-align:center">
+							<h:outputText value="#{venda.valorCusto}">
+								<f:convertNumber type="currency" groupingUsed="true"
+									minFractionDigits="2" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Lucratividade" style="text-align:center">
+							<h:outputText value="#{venda.valorVenda - venda.valorCusto}">
+								<f:convertNumber type="currency" groupingUsed="true"
+									minFractionDigits="2" />
+							</h:outputText>
+						</p:column>
+						<p:columnGroup type="footer">
+							<p:row>
+								<p:column colspan="2" style="text-align:right"
+									footerText="Totais:" />
+								<p:column footerText="#{vendaMB.totalValorVenda}"/>
+								<p:column footerText="#{vendaMB.totalValorCusto}" />
+								<p:column footerText="#{vendaMB.totalLucratividade}" />
+							</p:row>
+						</p:columnGroup>
+					</p:dataTable>
+				</fieldset>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

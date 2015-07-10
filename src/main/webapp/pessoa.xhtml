@@ -1,0 +1,74 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+	<h:panelGroup rendered="#{empty pessoaMB.pessoaSelecionada}">
+		<h:outputLabel>Nenhum Registro Selecionado</h:outputLabel>
+	</h:panelGroup>
+	<h:panelGroup rendered="#{not empty pessoaMB.pessoaSelecionada}">
+		<h:panelGrid columns="2">
+
+			<h:outputLabel value="Número da Pessoa" />
+			<p:inputText value="#{pessoaMB.pessoaSelecionada.pessoaSq}"
+				readonly="true" />
+
+			<h:outputLabel value="Tipo da Pessoa" />
+			<p:selectOneRadio value="#{pessoaMB.pessoaSelecionada.tipoPessoa}">
+				<f:selectItems value="#{pessoaMB.listaTipoPessoa}" var="tipoPessoa"
+					itemLabel="#{tipoPessoa.label}" />
+			</p:selectOneRadio>
+
+			<h:outputLabel value="Código da Pessoa" />
+			<p:inputText value="#{pessoaMB.pessoaSelecionada.codigoPessoa}" />
+
+			<h:outputLabel value="Nome da Pessoa" />
+			<p:inputText value="#{pessoaMB.pessoaSelecionada.nomePessoa}" />
+
+			<h:outputLabel value="Telefone Fixo" />
+			<p:inputText value="#{pessoaMB.pessoaSelecionada.telefoneFixoPessoa}" />
+
+			<h:outputLabel value="Telefone Celular" />
+			<p:inputText
+				value="#{pessoaMB.pessoaSelecionada.telefoneCelularPessoa}" />
+
+		</h:panelGrid>
+
+		<fieldset>
+			<legend>Endereço</legend>
+
+			<h:panelGrid columns="2">
+				<h:outputLabel value="C.E.P." />
+				<p:inputText
+					value="#{pessoaMB.pessoaSelecionada.enderecoPessoa.cep}" />
+
+				<h:outputLabel value="Número" />
+				<p:inputText
+					value="#{pessoaMB.pessoaSelecionada.enderecoPessoa.numero}" />
+
+				<h:outputLabel value="Complemento" />
+				<p:inputText
+					value="#{pessoaMB.pessoaSelecionada.enderecoPessoa.complemento}" />
+
+				<h:outputLabel value="Logradouro" />
+				<p:inputText
+					value="#{pessoaMB.pessoaSelecionada.enderecoPessoa.logradouro}" />
+
+				<h:outputLabel value="Cidade" />
+				<p:inputText
+					value="#{pessoaMB.pessoaSelecionada.enderecoPessoa.cidade}" />
+
+				<h:outputLabel value="Estado" />
+				<p:inputText
+					value="#{pessoaMB.pessoaSelecionada.enderecoPessoa.estado}" />
+
+			</h:panelGrid>
+		</fieldset>
+
+		<p:commandButton value="Enviar" action="#{pessoaMB.gravarPessoa}"
+			oncomplete="if (args &amp;&amp; !args.validationFailed) edtPessoaDialog.hide()" />
+
+	</h:panelGroup>
+</ui:composition>

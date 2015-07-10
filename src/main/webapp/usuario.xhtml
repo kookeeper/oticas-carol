@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+<h:body>
+
+	<ui:composition template="template/commonLayout.xhtml">
+		<ui:define name="content">
+			<h:form id="form">
+				<fieldset>
+					<legend>
+						Lista de Usuario
+						<p:commandButton icon="ui-icon-plus"
+							actionListener="#{usuarioMB.incluirUsuario}"
+							oncomplete="editarUsuarioDialog.show()"
+							update=":formEditar:editarUsuarioDlg" />
+					</legend>
+					<p:dataTable value="#{usuarioMB.listaUsuario}" var="usuario"
+						id="usuarioTable">
+						<p:column headerText="Número">
+							<h:outputText value="#{usuario.usuarioSq}" />
+						</p:column>
+						<p:column headerText="Nome">
+							<h:outputText value="#{usuario.nomeUsuario}" />
+						</p:column>
+						<p:column headerText="Perfil">
+							<h:outputText value="#{usuario.perfilUsuario}" />
+						</p:column>
+						<p:column headerText="Login">
+							<h:outputText value="#{usuario.login}" />
+						</p:column>
+						<p:column headerText="Editar">
+							<p:commandButton id="cb1" icon="ui-icon-pencil"
+								update=":formEditar:editarUsuarioDlg"
+								oncomplete="editarUsuarioDialog.show()">
+								<f:setPropertyActionListener
+									target="#{usuarioMB.usuarioSelecionado}" value="#{usuario}" />
+							</p:commandButton>
+						</p:column>
+					</p:dataTable>
+				</fieldset>
+			</h:form>
+
+			<h:form id="formEditar">
+				<p:dialog modal="true" id="editarUsuarioDlg"
+					header="Editando usuario #{usuarioMB.usuarioSelecionado.usuarioSq}"
+					widgetVar="editarUsuarioDialog" showEffect="explode"
+					hideEffect="explode" dynamic="true">
+
+					<h:panelGrid columns="2">
+						<h:outputLabel value="Número do Usuario" />
+						<p:inputText value="#{usuarioMB.usuarioSelecionado.usuarioSq}"
+							readonly="true" />
+
+						<h:outputLabel value="Nome do Usuario" />
+						<p:inputText value="#{usuarioMB.usuarioSelecionado.nomeUsuario}" />
+
+						<h:outputLabel value="Perfil do Usuario" />
+						<p:selectOneRadio value="#{usuarioMB.usuarioSelecionado.perfilUsuario}">
+							<f:selectItems value="#{usuarioMB.listaPerfilUsuario}"
+								var="perfil" itemLabel="#{perfil.label}" />
+						</p:selectOneRadio>
+
+						<h:outputLabel value="Login do Usuario" />
+						<p:inputText value="#{usuarioMB.usuarioSelecionado.login}" />
+
+						<h:outputLabel value="Senha" />
+						<p:password value="#{usuarioMB.usuarioSelecionado.senha}"
+							feedback="true" match="confirmacaoSenha" required="true"
+							requiredMessage="Informe uma senha"
+							validatorMessage="A senha informada não confere" />
+
+						<h:outputLabel value="Confirmação da Senha" />
+						<p:password id="confirmacaoSenha"
+							value="#{usuarioMB.usuarioSelecionado.confirmacaoSenha}" />
+					</h:panelGrid>
+
+					<p:messages autoUpdate="true" closable="true" showDetail="false" />
+
+					<p:commandButton value="Enviar" action="#{usuarioMB.gravarUsuario}"
+						oncomplete="if (args &amp;&amp; !args.validationFailed) editarUsuarioDialog.hide()"
+						update=":form:usuarioTable" />
+				</p:dialog>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

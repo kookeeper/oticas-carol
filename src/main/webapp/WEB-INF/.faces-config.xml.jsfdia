@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:*" PATH="*" SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:0" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="imprimirVenda::#imprimirVenda.xhtml"
+    NAME="output" PATH="/imprimirVenda.xhtml" SHAPE="-1,16"
+    TARGET="rules:#imprimirVenda.xhtml" TITLE="imprimirVenda" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="importarNFe::#importarNFe.xhtml"
+    NAME="output1" PATH="/importarNFe.xhtml" SHAPE="-1,24"
+    TARGET="rules:#importarNFe.xhtml" TITLE="importarNFe" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="imprimirOS::#imprimirOS.xhtml"
+    NAME="output2" PATH="/imprimirOS.xhtml" SHAPE="-1,32"
+    TARGET="rules:#imprimirOS.xhtml" TITLE="imprimirOS" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="listarNFe::#nfe.xhtml" NAME="output3"
+    PATH="/nfe.xhtml" SHAPE="-1,40" TARGET="rules:#nfe.xhtml"
+    TITLE="listarNFe" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="listarVenda::#venda.xhtml" NAME="output4"
+    PATH="/venda.xhtml" SHAPE="-1,48" TARGET="rules:#venda.xhtml"
+    TITLE="listarVenda" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="listarOS::#os.xhtml" NAME="output5"
+    PATH="/os.xhtml" SHAPE="-1,56" TARGET="rules:#os.xhtml"
+    TITLE="listarOS" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="listarProduto::#produto.xhtml"
+    NAME="output6" PATH="/produto.xhtml" SHAPE="-1,64"
+    TARGET="rules:#produto.xhtml" TITLE="listarProduto" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="listarUsuario::#usuario.xhtml"
+    NAME="output7" PATH="/usuario.xhtml" SHAPE="-1,72"
+    TARGET="rules:#usuario.xhtml" TITLE="listarUsuario" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="pagarOS::#pagarOS.xhtml" NAME="output8"
+    PATH="/pagarOS.xhtml" SHAPE="-1,80" TARGET="rules:#pagarOS.xhtml"
+    TITLE="pagarOS" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="retornarOS::#retornarOS.xhtml"
+    NAME="output9" PATH="/retornarOS.xhtml" SHAPE="-1,88"
+    TARGET="rules:#retornarOS.xhtml" TITLE="retornarOS" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="enviarOS::#enviarOS.xhtml" NAME="output10"
+    PATH="/enviarOS.xhtml" TARGET="rules:#enviarOS.xhtml"
+    TITLE="enviarOS" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#importarNFe.xhtml" PATH="/importarNFe.xhtml"
+  SHAPE="304,433,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#importarNFe.xhtml:0" NAME="item"
+   PATH="/importarNFe.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="sucesso::#index.xhtml" NAME="output"
+    PATH="/index.xhtml" SHAPE="-1,40" TARGET="rules:#index.xhtml"
+    TITLE="sucesso" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#imprimirOS.xhtml" PATH="/imprimirOS.xhtml"
+  SHAPE="304,545,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#imprimirOS.xhtml:0" NAME="item"
+   PATH="/imprimirOS.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="sucesso::#index.xhtml" NAME="output"
+    PATH="/index.xhtml" SHAPE="-1,40" TARGET="rules:#index.xhtml"
+    TITLE="sucesso" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#imprimirVenda.xhtml"
+  PATH="/imprimirVenda.xhtml" SHAPE="304,33,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#imprimirVenda.xhtml:0" NAME="item"
+   PATH="/imprimirVenda.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="sucesso::#index.xhtml" NAME="output"
+    PATH="/index.xhtml" SHAPE="-1,40" TARGET="rules:#index.xhtml"
+    TITLE="sucesso" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#nfe.xhtml" PATH="/nfe.xhtml"
+  SHAPE="304,657,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#nfe.xhtml:0" NAME="item" PATH="/nfe.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="sucesso::#index.xhtml" NAME="output"
+    PATH="/index.xhtml" SHAPE="-1,40" TARGET="rules:#index.xhtml"
+    TITLE="sucesso" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#usuario.xhtml" PATH="/usuario.xhtml"
+  SHAPE="304,1105,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#index.xhtml" PATH="/index.xhtml"
+  SHAPE="560,17,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#produto.xhtml" PATH="/produto.xhtml"
+  SHAPE="304,993,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#os.xhtml" PATH="/os.xhtml"
+  SHAPE="304,881,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#venda.xhtml" PATH="/venda.xhtml"
+  SHAPE="304,769,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#retornarOS.xhtml" PATH="/retornarOS.xhtml"
+  SHAPE="304,1329,0,0" model-entity="JSFProcessGroup" persistent="true">
+  <PROCESS-ITEM ID="rules:#retornarOS.xhtml:0" NAME="item"
+   PATH="/retornarOS.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="sucesso::#index.xhtml" NAME="output"
+    PATH="/index.xhtml" TARGET="rules:#index.xhtml" TITLE="sucesso" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pagarOS.xhtml" PATH="/pagarOS.xhtml"
+  SHAPE="304,1217,0,0" model-entity="JSFProcessGroup" persistent="true">
+  <PROCESS-ITEM ID="rules:#pagarOS.xhtml:0" NAME="item"
+   PATH="/pagarOS.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="sucesso::#index.xhtml" NAME="output"
+    PATH="/index.xhtml" TARGET="rules:#index.xhtml" TITLE="sucesso" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#enviarOS.xhtml" PATH="/enviarOS.xhtml"
+  SHAPE="304,465,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#enviarOS.xhtml:0" NAME="item"
+   PATH="/enviarOS.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="sucesso::#index.xhtml" NAME="output"
+    PATH="/index.xhtml" TARGET="rules:#index.xhtml" TITLE="sucesso" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*:1" PATH="*" SHAPE="32,1681,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:1" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="listarDuplicata::#duplicata.xhtml"
+    NAME="output" PATH="/duplicata.xhtml"
+    TARGET="rules:#duplicata.xhtml" TITLE="listarDuplicata" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#duplicata.xhtml" PATH="/duplicata.xhtml"
+  SHAPE="240,1697,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:*:2" PATH="*" SHAPE="32,2129,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:2" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="listarResumoVenda::#resumoVenda.xhtml"
+    NAME="output" PATH="/resumoVenda.xhtml"
+    TARGET="rules:#resumoVenda.xhtml" TITLE="listarResumoVenda" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#resumoVenda.xhtml" PATH="/resumoVenda.xhtml"
+  SHAPE="240,2145,0,0" model-entity="JSFProcessGroup"/>
+</PROCESS>

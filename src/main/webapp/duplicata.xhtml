@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+<h:body>
+
+	<ui:composition template="template/commonLayout.xhtml">
+		<ui:define name="content">
+			<h:form id="form">
+				<fieldset>
+					<legend>Lista de Duplicatas a Pagar</legend>
+						<p:selectOneRadio id="filtro" value="#{duplicataMB.filtro}">
+							<p:ajax event="change" update="duplicataTable"
+								listener="#{duplicataMB.filtrar}" />
+							<f:selectItem itemLabel="Todas" itemValue="" />
+							<f:selectItem itemLabel="Em aberto" itemValue="A" />
+							<f:selectItem itemLabel="Pagas" itemValue="P" />
+						</p:selectOneRadio>
+					<p:dataTable value="#{duplicataMB.listaDuplicata}" var="duplicata"
+						id="duplicataTable">
+						<p:column headerText="Fornecedor">
+							<h:outputText value="#{duplicata.nfe.fornecedorNFe.nomePessoa}" />
+						</p:column>
+						<p:column headerText="NFe">
+							<h:outputText value="#{duplicata.nfe.numeroNFe}" />
+						</p:column>
+						<p:column headerText="Duplicata">
+							<h:outputText value="#{duplicata.numero}" />
+						</p:column>
+						<p:column headerText="Valor">
+							<h:outputText value="#{duplicata.valor}">
+								<f:convertNumber type="currency" groupingUsed="true"
+									minFractionDigits="2" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Vencimento">
+							<h:outputText value="#{duplicata.dataVencimento}">
+								<f:convertDateTime type="date" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Pagamento">
+							<h:outputText value="#{duplicata.dataPagamento}">
+								<f:convertDateTime type="date" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Ações">
+							<p:commandButton id="cb1" icon="ui-icon-pencil"
+								actionListener="#{duplicataMB.editar(duplicata)}"
+								update=":form:editarDuplicataDialog"
+								oncomplete="editarDuplicataDialog.show()" rendered="#{duplicata.dataPagamento == null}" />
+						</p:column>
+					</p:dataTable>
+				</fieldset>
+
+				<p:dialog modal="true" id="editarDuplicataDialog"
+					header="Editando duplicata #{duplicataMB.duplicata.numero}"
+					widgetVar="editarDuplicataDialog" showEffect="explode"
+					hideEffect="explode" dynamic="true">
+					<h:panelGrid columns="2">
+
+						<h:outputLabel value="Data do Pagamento" />
+						<p:calendar value="#{duplicataMB.duplicata.dataPagamento}"
+							pattern="dd/MM/yyyy" />
+
+					</h:panelGrid>
+
+					<p:commandButton value="Enviar"
+						actionListener="#{duplicataMB.gravar}"
+						oncomplete="if (args &amp;&amp; !args.validationFailed) editarDuplicataDialog.hide()"
+						update=":form:duplicataTable" />
+				</p:dialog>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>
